@@ -3,14 +3,14 @@
 [ext_resource type="Texture2D" uid="uid://btejto8hc3tdn" path="res://Planet/pngwing.com (4).png" id="1_vhg11"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_s1pa7"]
-radius = 182.00275
+radius = 135.03333
 
 [node name="ball" type="RigidBody2D"]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-modulate = Color(0.37036446, 0.3703645, 0.37036446, 1)
-scale = Vector2(0.8, 0.8)
+scale = Vector2(0.6, 0.6)
 texture = ExtResource("1_vhg11")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(3, -3)
 shape = SubResource("CircleShape2D_s1pa7")
