@@ -1,3 +1,22 @@
-[gd_scene format=3 uid="uid://bmi4l8isf2vaf"]
+[gd_scene load_steps=2 format=3 uid="uid://bmi4l8isf2vaf"]
+
+[ext_resource type="PackedScene" uid="uid://c22kvelkc747v" path="res://block.tscn" id="1_htxqa"]
 
 [node name="backgroung" type="Node2D"]
+
+[node name="block" parent="." instance=ExtResource("1_htxqa")]
+position = Vector2(60, 346)
+rotation = -1.5707964
+
+[node name="block2" parent="." instance=ExtResource("1_htxqa")]
+position = Vector2(373, 706)
+
+[node name="block3" parent="." instance=ExtResource("1_htxqa")]
+position = Vector2(1097, 346)
+rotation = -1.5707964
+
+[node name="block4" parent="." instance=ExtResource("1_htxqa")]
+position = Vector2(782, 706)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-1, 755, 1147, 755, 1145, -42, 1041, -40, 1040, 648, 112, 646, 112, -40, -1, -38)
