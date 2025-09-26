@@ -1,9 +1,13 @@
-[gd_scene load_steps=2 format=3 uid="uid://cc6lrqdv51sht"]
+[gd_scene load_steps=3 format=3 uid="uid://cc6lrqdv51sht"]
 
 [ext_resource type="PackedScene" uid="uid://bmi4l8isf2vaf" path="res://backgroung.tscn" id="1_ig7tw"]
+[ext_resource type="PackedScene" uid="uid://dem7sn5vpcpx0" path="res://ball0.tscn" id="2_0xm2m"]
 
 [node name="Main" type="Node2D"]
 position = Vector2(-32, -28)
 
 [node name="backgroung" parent="." instance=ExtResource("1_ig7tw")]
 position = Vector2(33, 0)
+
+[node name="ball" parent="." instance=ExtResource("2_0xm2m")]
+position = Vector2(464, 204)
