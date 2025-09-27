@@ -11,3 +11,8 @@ position = Vector2(33, 0)
 
 [node name="ball" parent="." instance=ExtResource("2_0xm2m")]
 position = Vector2(464, 204)
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+position = Vector2(135, 50)
+rotation = -0.7853982
+target_position = Vector2(687.30786, 687.3078)
