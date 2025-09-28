@@ -1,13 +1,18 @@
-[gd_scene load_steps=3 format=3 uid="uid://cc6lrqdv51sht"]
+[gd_scene load_steps=8 format=3 uid="uid://cc6lrqdv51sht"]
 
 [ext_resource type="PackedScene" uid="uid://bmi4l8isf2vaf" path="res://backgroung.tscn" id="1_ig7tw"]
 [ext_resource type="PackedScene" uid="uid://dem7sn5vpcpx0" path="res://ball0.tscn" id="2_0xm2m"]
+[ext_resource type="PackedScene" uid="uid://dn0bkncduyfsg" path="res://ball1.tscn" id="3_272bh"]
+[ext_resource type="PackedScene" uid="uid://dmh855alp8erh" path="res://ball2.tscn" id="4_5vw27"]
+[ext_resource type="PackedScene" uid="uid://da3f7w6w23chk" path="res://ball3.tscn" id="5_kek77"]
+[ext_resource type="PackedScene" uid="uid://b6gpitykrcbhg" path="res://ball4.tscn" id="6_4c57u"]
+[ext_resource type="PackedScene" uid="uid://dlypir5dynwuy" path="res://ball.tscn" id="7_efxa6"]
 
 [node name="Main" type="Node2D"]
 position = Vector2(-32, -28)
 
 [node name="backgroung" parent="." instance=ExtResource("1_ig7tw")]
-position = Vector2(33, 0)
+position = Vector2(33, -26)
 
 [node name="ball" parent="." instance=ExtResource("2_0xm2m")]
 position = Vector2(464, 204)
@@ -16,3 +21,18 @@ position = Vector2(464, 204)
 position = Vector2(135, 50)
 rotation = -0.7853982
 target_position = Vector2(687.30786, 687.3078)
+
+[node name="ball2" parent="." instance=ExtResource("3_272bh")]
+position = Vector2(269, 389)
+
+[node name="ball3" parent="." instance=ExtResource("4_5vw27")]
+position = Vector2(507, 422)
+
+[node name="ball4" parent="." instance=ExtResource("5_kek77")]
+position = Vector2(745, 295)
+
+[node name="ball5" parent="." instance=ExtResource("6_4c57u")]
+position = Vector2(284, 203)
+
+[node name="ball6" parent="." instance=ExtResource("7_efxa6")]
+position = Vector2(642, 125)
