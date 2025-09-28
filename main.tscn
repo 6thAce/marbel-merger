@@ -36,3 +36,6 @@ position = Vector2(284, 203)
 
 [node name="ball6" parent="." instance=ExtResource("7_efxa6")]
 position = Vector2(642, 125)
+
+[node name="BallSpawner" type="Marker2D" parent="."]
+position = Vector2(604, -32)
