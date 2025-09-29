@@ -1,15 +1,15 @@
-[gd_scene load_steps=3 format=3 uid="uid://da3f7w6w23chk"]
+[gd_scene load_steps=3 format=3 uid="uid://dlypir5dynwuy"]
 
-[ext_resource type="Texture2D" uid="uid://84mi0c0k75f2" path="res://Planet/pngwing.com (2).png" id="1_5isnn"]
+[ext_resource type="Texture2D" uid="uid://x63ub6f3gtn" path="res://Planet/pngwing.com (1).png" id="1_x8fbi"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_5isnn"]
-radius = 112.00893
+[sub_resource type="CircleShape2D" id="CircleShape2D_41u45"]
+radius = 50.039986
 
 [node name="ball3" type="RigidBody2D"]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.15, 0.15)
-texture = ExtResource("1_5isnn")
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("1_x8fbi")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_5isnn")
+shape = SubResource("CircleShape2D_41u45")
