@@ -5,7 +5,7 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_qswyg"]
 radius = 65.00769
 
-[node name="ball3" type="RigidBody2D"]
+[node name="ball2" type="RigidBody2D"]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.25, 0.25)
