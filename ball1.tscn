@@ -1,11 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://dem7sn5vpcpx0"]
+[gd_scene load_steps=4 format=3 uid="uid://dem7sn5vpcpx0"]
 
+[ext_resource type="Script" uid="uid://dit6oj3gj4vs" path="res://ball_1.gd" id="1_5jjlg"]
 [ext_resource type="Texture2D" uid="uid://iiv7wscammqe" path="res://Planet/pngwing.com (7).png" id="1_aufaw"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_aufaw"]
 radius = 63.333332
 
 [node name="ball1" type="RigidBody2D"]
+script = ExtResource("1_5jjlg")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.3, 0.3)

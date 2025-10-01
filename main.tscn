@@ -17,7 +17,7 @@ scale = Vector2(0.99999994, 0.99999994)
 target_position = Vector2(687.30786, 687.3078)
 
 [node name="BallSpawner" type="Marker2D" parent="."]
-position = Vector2(604, -32)
+position = Vector2(604, -74)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(602, 319)
