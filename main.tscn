@@ -1,13 +1,15 @@
-[gd_scene load_steps=3 format=3 uid="uid://cc6lrqdv51sht"]
+[gd_scene load_steps=5 format=3 uid="uid://cc6lrqdv51sht"]
 
-[ext_resource type="Script" uid="uid://bill4kdpkvshf" path="res://Main.gd" id="1_5vw27"]
-[ext_resource type="PackedScene" uid="uid://bmi4l8isf2vaf" path="res://backgroung.tscn" id="1_ig7tw"]
+[ext_resource type="Script" uid="uid://bill4kdpkvshf" path="res://Main.gd" id="1_uu6xs"]
+[ext_resource type="PackedScene" uid="uid://bmi4l8isf2vaf" path="res://backgroung.tscn" id="2_r0du0"]
+[ext_resource type="PackedScene" uid="uid://b6gpitykrcbhg" path="res://ball5.tscn" id="3_r0du0"]
+[ext_resource type="PackedScene" uid="uid://dn0bkncduyfsg" path="res://ball0.tscn" id="4_cm0pq"]
 
 [node name="Main" type="Node2D"]
 position = Vector2(-32, -28)
-script = ExtResource("1_5vw27")
+script = ExtResource("1_uu6xs")
 
-[node name="backgroung" parent="." instance=ExtResource("1_ig7tw")]
+[node name="backgroung" parent="." instance=ExtResource("2_r0du0")]
 position = Vector2(27, -26)
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
@@ -22,3 +24,15 @@ position = Vector2(604, -74)
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(602, 319)
 zoom = Vector2(0.75, 0.75)
+
+[node name="ball5" parent="." instance=ExtResource("3_r0du0")]
+position = Vector2(914, 455)
+
+[node name="ball6" parent="." instance=ExtResource("3_r0du0")]
+position = Vector2(931, 100)
+
+[node name="ball0" parent="." instance=ExtResource("4_cm0pq")]
+position = Vector2(442, 300)
+
+[node name="ball1" parent="." instance=ExtResource("4_cm0pq")]
+position = Vector2(442, 196)
