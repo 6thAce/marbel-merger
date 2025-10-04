@@ -34,7 +34,8 @@ func _process(delta):
 func _input(event):
 	if event is InputEventMouseButton and event.pressed:
 		drop_ball()
-
+	if Input.is_action_just_pressed("space"):
+		drop_ball()
 	if event is InputEventScreenTouch and event.pressed:
 		drop_ball()
 
