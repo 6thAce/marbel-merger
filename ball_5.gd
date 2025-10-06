@@ -1,30 +1,38 @@
 extends RigidBody2D
 
-@export var level: int = 5   # Ball type (0,1,2,...)
-@onready var main = get_tree().root.get_node("Main") # reference to Main node
+@export var level: int = 5
+@onready var main: Node = get_tree().get_root().find_child("Main", true, false)
 
-func _ready():
-	# Do NOT connect signal here, Editor already handles body_entered
-	pass
+func _ready() -> void:
+	var area = $Area2D
+	if area:
+		area.body_entered.connect(_on_area_2d_body_entered)
 
-func _on_body_entered(body: Node):
+func _on_area_2d_body_entered(body: Node) -> void:
+	if body == self:
+		return
 	if body is RigidBody2D and body.has_method("get_level"):
-		print("Collision with ball level: ", body.get_level())
-		if body.get_level() == level: # same type
-			merge_with(body)
+		if body.get_level() == level:
+			# Only one ball should handle the merge
+			if get_instance_id() < body.get_instance_id():
+				print("Merging two level", level, "balls")
+				merge_with(body)
 
 func get_level() -> int:
 	return level
 
-func merge_with(other_ball: RigidBody2D):
+func merge_with(other_ball: RigidBody2D) -> void:
 	if !is_instance_valid(other_ball):
 		return
 
-	# Example merge logic
-	var new_ball_scene = load("res://ball" + str(level + 1) + ".tscn")
-	var new_ball = new_ball_scene.instantiate()
-	new_ball.position = (position + other_ball.position) / 2
+	var new_pos = (position + other_ball.position) / 2.0
+	var next_level = level + 1
 
-	main.add_child(new_ball)
-	queue_free()
-	other_ball.queue_free()
+	# Remove both old balls safely in next frame
+	call_deferred("queue_free")
+	other_ball.call_deferred("queue_free")
+
+	if main and next_level < main.ball_scenes.size():
+		var new_ball = main.ball_scenes[next_level].instantiate()
+		new_ball.position = new_pos
+		main.add_child(new_ball)
