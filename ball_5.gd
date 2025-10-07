@@ -13,26 +13,20 @@ func _on_area_2d_body_entered(body: Node) -> void:
 		return
 	if body is RigidBody2D and body.has_method("get_level"):
 		if body.get_level() == level:
-			# Only one ball should handle the merge
-			if get_instance_id() < body.get_instance_id():
-				print("Merging two level", level, "balls")
-				merge_with(body)
+			_on_same_level_hit(body)
 
-func get_level() -> int:
-	return level
+func _on_same_level_hit(body: Node) -> void:
+	# Both are max-level balls
+	print("💥 Two max-level balls collided!")
 
-func merge_with(other_ball: RigidBody2D) -> void:
-	if !is_instance_valid(other_ball):
-		return
+	# Optional: bounce effect when two max balls hit
+	var direction = (global_position - body.global_position).normalized()
+	apply_impulse(direction * 150.0)
 
-	var new_pos = (position + other_ball.position) / 2.0
-	var next_level = level + 1
+	# Optional: add visual or sound feedback
+	if has_node("Particles2D"):
+		$Particles2D.emitting = true
+	if has_node("AudioStreamPlayer2D"):
+		$AudioStreamPlayer2D.play()
 
-	# Remove both old balls safely in next frame
-	call_deferred("queue_free")
-	other_ball.call_deferred("queue_free")
-
-	if main and next_level < main.ball_scenes.size():
-		var new_ball = main.ball_scenes[next_level].instantiate()
-		new_ball.position = new_pos
-		main.add_child(new_ball)
+	# No merging — this is the final level
