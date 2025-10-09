@@ -1,6 +1,6 @@
 extends RigidBody2D
 
-@export var level: int = 0
+@export var level: int = 2
 @onready var main: Node = get_tree().get_root().find_child("Main", true, false)
 
 func _ready() -> void:

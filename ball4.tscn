@@ -1,17 +1,17 @@
 [gd_scene load_steps=4 format=3 uid="uid://da3f7w6w23chk"]
 
-[ext_resource type="Texture2D" uid="uid://84mi0c0k75f2" path="res://Planet/pngwing.com (2).png" id="1_5isnn"]
-[ext_resource type="Script" uid="uid://dxwna2w5nr8ow" path="res://ball_4.gd" id="1_s1pa7"]
+[ext_resource type="Script" uid="uid://dt2vcv47rdhyw" path="res://ball_3.gd" id="1_t3t4t"]
+[ext_resource type="Texture2D" uid="uid://84mi0c0k75f2" path="res://Planet/pngwing.com (2).png" id="2_2004f"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_5isnn"]
 radius = 90.005554
 
 [node name="ball4" type="RigidBody2D"]
-script = ExtResource("1_s1pa7")
+script = ExtResource("1_t3t4t")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.12, 0.12)
-texture = ExtResource("1_5isnn")
+texture = ExtResource("2_2004f")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_5isnn")
