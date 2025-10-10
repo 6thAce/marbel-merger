@@ -6,8 +6,8 @@ var ball_scenes = [
 	preload("res://ball1.tscn"),
 	preload("res://ball2.tscn"),
 	preload("res://ball3.tscn"),
-	preload("res://ball4.tscn"),
-	preload("res://ball5.tscn")
+	preload("res://ball4.tscn")
+	#preload("res://ball5.tscn")
 ]
 
 var preview_ball: Node2D = null
