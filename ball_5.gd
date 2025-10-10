@@ -16,9 +16,6 @@ func _on_area_2d_body_entered(body: Node) -> void:
 			_on_same_level_hit(body)
 
 func _on_same_level_hit(body: Node) -> void:
-	# Both are max-level balls
-	print("💥 Two max-level balls collided!")
-
 	# Optional: bounce effect when two max balls hit
 	var direction = (global_position - body.global_position).normalized()
 	apply_impulse(direction * 150.0)

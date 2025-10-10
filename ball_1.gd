@@ -15,7 +15,6 @@ func _on_area_2d_body_entered(body: Node) -> void:
 		if body.get_level() == level:
 			# Only one ball should handle the merge
 			if get_instance_id() < body.get_instance_id():
-				print("Merging two level", level, "balls")
 				merge_with(body)
 
 func get_level() -> int:
