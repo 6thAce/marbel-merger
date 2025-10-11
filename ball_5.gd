@@ -6,25 +6,19 @@ var is_preview: bool = false
 
 func _ready() -> void:
 	var area = $Area2D
-	if area:
+	if area and not area.body_entered.is_connected(_on_area_2d_body_entered):
 		area.body_entered.connect(_on_area_2d_body_entered)
 
 func _on_area_2d_body_entered(body: Node) -> void:
-	if body == self:
+	if body == self or is_preview:
 		return
 	if body is RigidBody2D and body.has_method("get_level"):
 		if body.get_level() == level:
 			_on_same_level_hit(body)
 
 func _on_same_level_hit(body: Node) -> void:
-	# Optional: bounce effect when two max balls hit
+	# Do not merge; just create a bounce or special effect
 	var direction = (global_position - body.global_position).normalized()
 	apply_impulse(direction * 150.0)
 
-	# Optional: add visual or sound feedback
-	if has_node("Particles2D"):
-		$Particles2D.emitting = true
-	if has_node("AudioStreamPlayer2D"):
-		$AudioStreamPlayer2D.play()
-
-	# No merging — this is the final level
+	# Optional effects: Particles or

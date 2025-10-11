@@ -6,15 +6,17 @@ var is_preview: bool = false
 
 func _ready() -> void:
 	var area = $Area2D
-	if area:
+	# Connect manually (ignore editor connections)
+	if not area.body_entered.is_connected(_on_area_2d_body_entered):
 		area.body_entered.connect(_on_area_2d_body_entered)
 
 func _on_area_2d_body_entered(body: Node) -> void:
+	if is_preview:
+		return
 	if body == self:
 		return
-	if body is RigidBody2D and body.has_method("get_level"):
+	if body is RigidBody2D and body.has_method("get_level") and not body.is_preview:
 		if body.get_level() == level:
-			# Only one ball should handle the merge
 			if get_instance_id() < body.get_instance_id():
 				merge_with(body)
 
@@ -28,7 +30,6 @@ func merge_with(other_ball: RigidBody2D) -> void:
 	var new_pos = (position + other_ball.position) / 2.0
 	var next_level = level + 1
 
-	# Remove both old balls safely in next frame
 	call_deferred("queue_free")
 	other_ball.call_deferred("queue_free")
 
