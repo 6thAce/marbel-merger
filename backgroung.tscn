@@ -9,16 +9,21 @@ position = Vector2(60, 346)
 rotation = -1.5707964
 
 [node name="block2" parent="." instance=ExtResource("1_htxqa")]
-position = Vector2(373, 706)
+position = Vector2(382, 707)
 
 [node name="block3" parent="." instance=ExtResource("1_htxqa")]
 position = Vector2(1097, 346)
 rotation = -1.5707964
 
 [node name="block4" parent="." instance=ExtResource("1_htxqa")]
-position = Vector2(782, 706)
+position = Vector2(774, 707)
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 build_mode = 1
 polygon = PackedVector2Array(-1, 755, 1155, 759, 1155, -40, 1039, -40, 1040, 648, 112, 646, 112, -40, -1, -38)
 disabled = true
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(570, 351)
+enabled = false
+zoom = Vector2(0.75, 0.75)

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://84mi0c0k75f2"
-path="res://.godot/imported/pngwing.com (2).png-99deade9ab06ff1ae1745cf7a33f86e3.ctex"
+uid="uid://cfm2nohf778t2"
+path="res://.godot/imported/jupiter.png-e9c42f27ec4ea32a0df14f3ef61ea7b8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Planet/pngwing.com (2).png"
-dest_files=["res://.godot/imported/pngwing.com (2).png-99deade9ab06ff1ae1745cf7a33f86e3.ctex"]
+source_file="res://Planet/jupiter.png"
+dest_files=["res://.godot/imported/jupiter.png-e9c42f27ec4ea32a0df14f3ef61ea7b8.ctex"]
 
 [params]
 

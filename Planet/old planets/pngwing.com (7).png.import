@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b17tl20ipyl2r"
-path="res://.godot/imported/pngwing.com (6).png-a675bbde7b72e622d8c951664d3a1c2a.ctex"
+uid="uid://iiv7wscammqe"
+path="res://.godot/imported/pngwing.com (7).png-1052171d8512ee3076c3da8afb4043fe.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Planet/pngwing.com (6).png"
-dest_files=["res://.godot/imported/pngwing.com (6).png-a675bbde7b72e622d8c951664d3a1c2a.ctex"]
+source_file="res://Planet/old planets/pngwing.com (7).png"
+dest_files=["res://.godot/imported/pngwing.com (7).png-1052171d8512ee3076c3da8afb4043fe.ctex"]
 
 [params]
 
