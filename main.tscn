@@ -1,13 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://cc6lrqdv51sht"]
+[gd_scene load_steps=3 format=3 uid="uid://cc6lrqdv51sht"]
 
 [ext_resource type="Script" uid="uid://bill4kdpkvshf" path="res://Main.gd" id="1_uu6xs"]
 [ext_resource type="PackedScene" uid="uid://bmi4l8isf2vaf" path="res://backgroung.tscn" id="2_r0du0"]
-[ext_resource type="PackedScene" uid="uid://dn0bkncduyfsg" path="res://ball0.tscn" id="3_trn2v"]
-[ext_resource type="PackedScene" uid="uid://dem7sn5vpcpx0" path="res://ball1.tscn" id="4_03owx"]
-[ext_resource type="PackedScene" uid="uid://dlypir5dynwuy" path="res://ball2.tscn" id="5_wkp8b"]
-[ext_resource type="PackedScene" uid="uid://dmh855alp8erh" path="res://ball3.tscn" id="6_20pc6"]
-[ext_resource type="PackedScene" uid="uid://da3f7w6w23chk" path="res://ball4.tscn" id="7_5vvyt"]
-[ext_resource type="PackedScene" uid="uid://b6gpitykrcbhg" path="res://ball5.tscn" id="8_c6i3y"]
 
 [node name="Main" type="Node2D"]
 position = Vector2(-32, -28)
@@ -28,21 +22,3 @@ position = Vector2(604, -74)
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(602, 319)
 zoom = Vector2(0.75, 0.75)
-
-[node name="ball0" parent="." instance=ExtResource("3_trn2v")]
-position = Vector2(191, 546)
-
-[node name="ball1" parent="." instance=ExtResource("4_03owx")]
-position = Vector2(274, 534)
-
-[node name="ball2" parent="." instance=ExtResource("5_wkp8b")]
-position = Vector2(381, 530)
-
-[node name="ball3" parent="." instance=ExtResource("6_20pc6")]
-position = Vector2(515, 508)
-
-[node name="ball4" parent="." instance=ExtResource("7_5vvyt")]
-position = Vector2(698, 496)
-
-[node name="ball5" parent="." instance=ExtResource("8_c6i3y")]
-position = Vector2(943, 470)
