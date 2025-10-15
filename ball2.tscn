@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://dlypir5dynwuy"]
 
 [ext_resource type="Script" uid="uid://cjkwm1m3jmpk1" path="res://ball_2.gd" id="1_cq731"]
-[ext_resource type="Texture2D" uid="uid://x63ub6f3gtn" path="res://Planet/pngwing.com (1).png" id="2_cq731"]
+[ext_resource type="Texture2D" uid="uid://bwwgf2r3qsjkx" path="res://Planet/mars.png" id="2_cq731"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_41u45"]
 radius = 50.039986
@@ -10,7 +10,7 @@ radius = 50.039986
 script = ExtResource("1_cq731")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.25, 0.25)
+scale = Vector2(0.17406751, 0.17406742)
 texture = ExtResource("2_cq731")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
