@@ -6,7 +6,7 @@ const BALL_SPAWN_SPEED := 200.0
 # Estimated radius (half-width) of the ball in pixels, used for boundary clamping.
 const BALL_RADIUS := 16.0 
 
-# NEW: Defines the likelihood of spawning each ball level (0 to 4).
+# Defines the likelihood of spawning each ball level (0 to 4).
 # Level 5 is excluded as it is merge-only.
 # Higher number = higher chance. Total sum is 100.
 # [L0, L1, L2, L3, L4]
@@ -27,10 +27,13 @@ var ball_scenes = [
 var preview_ball: RigidBody2D = null
 var can_move := true # Flag to control movement and input processing
 var is_game_over := false # State to track if the game has ended
+var last_drop_x: float = 0.0 # NEW: Stores the x-position of the last dropped ball
 
 func _ready():
 	# Use randomize() to ensure true random ball selection on each run
 	randomize() 
+	# NEW: Initialize last drop position to the spawner's x position
+	last_drop_x = spawner.position.x 
 	spawn_preview()
 
 # =========================
@@ -77,7 +80,9 @@ func spawn_preview():
 	# The chosen index (0-4) corresponds to the ball scene in the array
 	var BallScene = ball_scenes[chosen_index]
 	preview_ball = BallScene.instantiate()
-	preview_ball.position = spawner.position
+	
+	# MODIFIED: Spawn the new ball at the last dropped X position
+	preview_ball.position = Vector2(last_drop_x, spawner.position.y)
 	
 	# --- Preview Mode Setup (Ghost-like state) ---
 	preview_ball.freeze = true 
@@ -144,6 +149,9 @@ func drop_ball():
 	preview_ball.freeze = false
 	preview_ball.set_collision_layer_value(1, true)
 	preview_ball.set_collision_mask_value(1, true)
+	
+	# NEW: Store the horizontal position before the ball is detached/freed
+	last_drop_x = preview_ball.position.x
 
 	# 3. Unmark as preview
 	if "is_preview" in preview_ball:
