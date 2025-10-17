@@ -10,11 +10,13 @@ script = ExtResource("1_uu6xs")
 [node name="backgroung" parent="." instance=ExtResource("2_r0du0")]
 position = Vector2(27, -26)
 
-[node name="RayCast2D" type="RayCast2D" parent="."]
+[node name="GameOverRay" type="RayCast2D" parent="."]
 position = Vector2(135, 50)
 rotation = -0.7853982
 scale = Vector2(0.99999994, 0.99999994)
 target_position = Vector2(687.30786, 687.3078)
+
+[node name="Timer" type="Timer" parent="GameOverRay"]
 
 [node name="BallSpawner" type="Marker2D" parent="."]
 position = Vector2(604, -74)
