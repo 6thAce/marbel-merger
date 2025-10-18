@@ -1,168 +1,189 @@
 extends Node2D
 
-# --- Constants ---
-# Movement speed of the ball while it's in preview mode
-const BALL_SPAWN_SPEED := 200.0
-# Estimated radius (half-width) of the ball in pixels, used for boundary clamping.
-const BALL_RADIUS := 16.0 
-
-# Defines the likelihood of spawning each ball level (0 to 4).
-# Level 5 is excluded as it is merge-only.
-# Higher number = higher chance. Total sum is 100.
-# [L0, L1, L2, L3, L4]
-const SPAWN_WEIGHTS = [60, 25, 10, 5, 0] 
-
+# UI Nodes (You need to create these nodes in your scene!)
+# FIXED: The node name now matches the "Score_label" node in your scene tree.
+@onready var score_label = $Score_label 
 @onready var spawner = $BallSpawner
 
-# List of preloaded ball scenes to choose from randomly
+# Game Configuration
+const SPAWN_WEIGHTS = [60, 25, 10, 5, 0] # Levels 0, 1, 2, 3, 4. Total 100.
+const BALL_RADIUS = 16.0 # Used for boundary checking
+
+# Resources
 var ball_scenes = [
 	preload("res://ball0.tscn"),
 	preload("res://ball1.tscn"),
 	preload("res://ball2.tscn"),
 	preload("res://ball3.tscn"),
 	preload("res://ball4.tscn"),
-	preload("res://ball5.tscn") # Merge-only ball
+	preload("res://ball5.tscn") # For merging only
 ]
 
+# State Variables
 var preview_ball: RigidBody2D = null
-var can_move := true # Flag to control movement and input processing
-var is_game_over := false # State to track if the game has ended
-var last_drop_x: float = 0.0 # NEW: Stores the x-position of the last dropped ball
+var can_move := true
+var is_game_over := false
+var last_drop_x: float = 0.0
+var current_score: int = 0
+
+# =========================
+# ⚙️ Initialization & Setup
+# =========================
 
 func _ready():
-	# Use randomize() to ensure true random ball selection on each run
-	randomize() 
-	# NEW: Initialize last drop position to the spawner's x position
-	last_drop_x = spawner.position.x 
+	randomize()
+	# Initialize last drop position to the spawner's X
+	last_drop_x = spawner.position.x
+	update_score_display() # Display initial score (0)
 	spawn_preview()
 
 # =========================
-# 🎮 Game State Management
+# 📊 Score System
 # =========================
 
-# Public function to be called by a Game Over area in the scene
-func end_game():
+func update_score_display():
+	# Ensure the label is ready before trying to update it
+	if is_instance_valid(score_label):
+		score_label.text = "SCORE: " + str(current_score)
+
+func add_score(points: int):
+	current_score += points
+	update_score_display()
+
+# =========================
+# 🧩 Ball Spawning
+# =========================
+
+func get_random_ball_scene() -> Resource:
+	var total_weight = 0
+	for weight in SPAWN_WEIGHTS:
+		total_weight += weight
+
+	var random_value = randi() % total_weight
+	var cumulative_weight = 0
+
+	# Iterate through weights to find the selected ball level index
+	for i in range(SPAWN_WEIGHTS.size()):
+		cumulative_weight += SPAWN_WEIGHTS[i]
+		if random_value < cumulative_weight:
+			return ball_scenes[i]
+	
+	# Fallback (should not happen if weights are correct)
+	return ball_scenes[0]
+
+func spawn_preview():
 	if is_game_over:
 		return
-	
-	is_game_over = true
-	can_move = false
-	
-	if preview_ball:
-		preview_ball.queue_free()
-		preview_ball = null
-	
-	print("GAME OVER! Balls stopped spawning.")
-
-# =========================
-# 🧩 Create a Preview Ball - NOW WITH WEIGHTED SELECTION
-# =========================
-func spawn_preview():
-	if is_game_over: # Don't spawn if the game is over
-		return
 		
-	# 1. Determine which ball level to spawn based on weights
-	var max_weight = 0
-	for weight in SPAWN_WEIGHTS:
-		max_weight += weight
-	
-	var random_pick = randi() % max_weight
-	var chosen_index = 0
-	var current_weight_sum = 0
-	
-	# Find the index corresponding to the random number
-	for i in range(SPAWN_WEIGHTS.size()):
-		current_weight_sum += SPAWN_WEIGHTS[i]
-		if random_pick < current_weight_sum:
-			chosen_index = i
-			break
-			
-	# The chosen index (0-4) corresponds to the ball scene in the array
-	var BallScene = ball_scenes[chosen_index]
+	var BallScene = get_random_ball_scene()
 	preview_ball = BallScene.instantiate()
 	
-	# MODIFIED: Spawn the new ball at the last dropped X position
+	# Position the new preview ball at the last dropped X position
 	preview_ball.position = Vector2(last_drop_x, spawner.position.y)
 	
-	# --- Preview Mode Setup (Ghost-like state) ---
-	preview_ball.freeze = true 
-	preview_ball.set_collision_layer_value(1, false) 
+	# --- Preview Mode ---
+	preview_ball.freeze = true
+	# Use bitwise NOT for safety, but this is the intent:
+	preview_ball.set_collision_layer_value(1, false)
 	preview_ball.set_collision_mask_value(1, false)
-	
+
+	# Optional visual cue (semi-transparent)
 	var sprite := preview_ball.get_node_or_null("Sprite2D")
 	if sprite:
 		sprite.modulate.a = 0.4
 	
-	# 2. Add the ball to the scene tree
 	add_child(preview_ball)
 
+# =========================
+# ⛓️ Move the Preview
+# =========================
 
-# =========================
-# ⛓️ Move the Preview & Clamp Boundaries
-# =========================
 func _process(delta):
-	# Check if the game is active before allowing movement
 	if preview_ball and can_move and not is_game_over:
-		var move_speed = BALL_SPAWN_SPEED * delta 
+		var move_speed = 200.0 * delta # Fixes type inference error
 		
-		# Apply movement
+		var viewport_width = get_viewport_rect().size.x
+		var min_x = BALL_RADIUS
+		var max_x = viewport_width - BALL_RADIUS
+
 		if Input.is_action_pressed("ui_left"):
 			preview_ball.position.x -= move_speed
 		elif Input.is_action_pressed("ui_right"):
 			preview_ball.position.x += move_speed
 			
-		# CLAMPING: Ensure the ball stays within the screen boundaries
-		var viewport_width = get_viewport_rect().size.x
-		var min_x = BALL_RADIUS
-		var max_x = viewport_width - BALL_RADIUS
-		
-		# Clamp position to prevent ball from leaving the play area
+		# Clamp position to keep the ball within screen boundaries
 		preview_ball.position.x = clamp(preview_ball.position.x, min_x, max_x)
 
 
 # =========================
 # 🖱️ Handle Input
 # =========================
+
 func _input(event):
-	# Only process input if we are in the move state AND the game is not over
-	if can_move and not is_game_over:
-		# Check for Mouse Click, Spacebar, or Screen Touch
-		if (event is InputEventMouseButton and event.pressed) or \
-		   Input.is_action_just_pressed("space") or \
-		   (event is InputEventScreenTouch and event.pressed):
-			drop_ball()
+	if is_game_over:
+		return
+
+	var should_drop = false
+	if event is InputEventMouseButton and event.pressed:
+		should_drop = true
+	elif Input.is_action_just_pressed("space"):
+		should_drop = true
+	elif event is InputEventScreenTouch and event.pressed:
+		should_drop = true
+	
+	if should_drop:
+		drop_ball()
 
 
 # =========================
-# 🪂 Drop the Ball (Activate Physics)
+# 🪂 Drop the Ball
 # =========================
+
 func drop_ball():
-	if not preview_ball or is_game_over: 
+	if not preview_ball:
 		return
 	
-	# 1. Restore visual state
+	# Store the drop position for the next ball
+	last_drop_x = preview_ball.position.x
+	
+	# Restore opacity
 	var sprite := preview_ball.get_node_or_null("Sprite2D")
 	if sprite:
 		sprite.modulate.a = 1.0
 
-	# 2. Enable physics and collisions
+	# Enable physics + collisions
 	preview_ball.freeze = false
 	preview_ball.set_collision_layer_value(1, true)
 	preview_ball.set_collision_mask_value(1, true)
-	
-	# NEW: Store the horizontal position before the ball is detached/freed
-	last_drop_x = preview_ball.position.x
 
-	# 3. Unmark as preview
+	# Unmark as preview (if used in other scripts)
 	if "is_preview" in preview_ball:
 		preview_ball.is_preview = false
 
-	# 4. Cleanup and setup for next ball
+	# Allow delay before next preview
 	preview_ball = null
 	can_move = false
 	
+	# Wait for a brief moment before spawning the next ball
 	await get_tree().create_timer(0.5).timeout
+	can_move = true
+	spawn_preview()
+
+# =========================
+# 🛑 Game Over
+# =========================
+
+func end_game():
+	if is_game_over:
+		return
+		
+	is_game_over = true
+	can_move = false
+	if preview_ball:
+		preview_ball.queue_free()
+		preview_ball = null
 	
-	if not is_game_over: 
-		can_move = true
-		spawn_preview()
+	# Add a simple Game Over message (You should create a proper UI for this)
+	if is_instance_valid(score_label):
+		score_label.text = "GAME OVER! Final Score: " + str(current_score)
+ 

@@ -24,3 +24,9 @@ position = Vector2(604, -74)
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(602, 319)
 zoom = Vector2(0.75, 0.75)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ScoreLabel" type="Label" parent="CanvasLayer"]
+offset_right = 48.0
+offset_bottom = 23.0
