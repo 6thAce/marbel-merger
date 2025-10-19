@@ -30,3 +30,4 @@ zoom = Vector2(0.75, 0.75)
 [node name="ScoreLabel" type="Label" parent="CanvasLayer"]
 offset_right = 48.0
 offset_bottom = 23.0
+text = "SCORE: 0"
