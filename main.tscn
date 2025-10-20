@@ -18,6 +18,8 @@ target_position = Vector2(687.30786, 687.3078)
 
 [node name="Timer" type="Timer" parent="GameOverRay"]
 
+[node name="Line2D" type="Line2D" parent="GameOverRay"]
+
 [node name="BallSpawner" type="Marker2D" parent="."]
 position = Vector2(604, -74)
 
