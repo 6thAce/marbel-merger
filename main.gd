@@ -38,7 +38,9 @@ var collision_time: float = 0.0
 
 func _ready():
 	randomize()
-	last_drop_x = spawner.position.x
+	# Safety check: Initialize last_drop_x only if spawner exists
+	if is_instance_valid(spawner):
+		last_drop_x = spawner.position.x
 	update_score_display() 
 	spawn_preview()
 	
@@ -47,7 +49,22 @@ func _ready():
 	pass # Connections removed
 
 # =========================
-# ⏱️ Timed Game Over Logic
+# 🖱️ Handle Input (FIXED: Input function re-added)
+# =========================
+
+func _input(event):
+	if is_game_over:
+		return
+		
+	if event is InputEventMouseButton and event.pressed:
+		drop_ball()
+	elif Input.is_action_just_pressed("space"):
+		drop_ball()
+	elif event is InputEventScreenTouch and event.pressed:
+		drop_ball()
+
+# =========================
+# ⏱️ Timed Game Over Logic (FIXED: has_variable() replaced with 'in' operator)
 # =========================
 
 func _physics_process(delta):
@@ -55,14 +72,17 @@ func _physics_process(delta):
 		return
 		
 	# Force the RayCast to check for collisions
+	if not is_instance_valid(game_over_ray):
+		return # Safety check
+		
 	game_over_ray.force_raycast_update()
 	var current_collider = game_over_ray.get_collider()
 	
 	if current_collider and current_collider is RigidBody2D:
 		var ball = current_collider as RigidBody2D
 		
-		# 1. Check if the ball is NOT a preview ball
-		if ball.has_variable("is_preview") and not ball.is_preview:
+		# 1. Check if the ball is NOT a preview ball (FIX APPLIED HERE)
+		if "is_preview" in ball and not ball.is_preview:
 			var current_id = ball.get_instance_id()
 			
 			if colliding_ball_id == current_id:
@@ -120,6 +140,11 @@ func get_random_ball_scene() -> Resource:
 func spawn_preview():
 	if is_game_over:
 		return
+	
+	# CRITICAL SAFETY CHECK ADDED HERE
+	if not is_instance_valid(spawner):
+		print("ERROR: BallSpawner node is missing! Cannot spawn new ball.")
+		return
 		
 	var BallScene = get_random_ball_scene()
 	preview_ball = BallScene.instantiate()
@@ -137,13 +162,13 @@ func spawn_preview():
 	add_child(preview_ball)
 
 # =========================
-# ⛓️ Move the Preview (Same as before)
+# ⛓️ Move the Preview (Fixed White Space Error)
 # =========================
 
 func _process(delta):
 	# Note: This uses delta for smooth movement, while _physics_process handles the timed Game Over
 	if preview_ball and can_move and not is_game_over:
-		var move_speed = 200.0 * delta 
+		var move_speed = 200.0 * delta
 		
 		var viewport_width = get_viewport_rect().size.x
 		var min_x = BALL_RADIUS

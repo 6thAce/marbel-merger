@@ -4,13 +4,13 @@
 [ext_resource type="Texture2D" uid="uid://4eea8o12apgd" path="res://Planet/jupiter.png" id="2_s1pa7"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_5isnn"]
-radius = 90.005554
+radius = 105.0
 
 [node name="ball4" type="RigidBody2D"]
 script = ExtResource("1_s1pa7")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.16296294, 0.16296294)
+scale = Vector2(0.19074073, 0.19074075)
 texture = ExtResource("2_s1pa7")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

@@ -4,13 +4,13 @@
 [ext_resource type="Texture2D" uid="uid://bfmfc7od2mqq3" path="res://Planet/earth.png" id="2_t3t4t"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qswyg"]
-radius = 65.00769
+radius = 76.02631
 
 [node name="ball3" type="RigidBody2D"]
 script = ExtResource("1_cq731")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.23443224, 0.23443224)
+scale = Vector2(0.27472535, 0.2747253)
 texture = ExtResource("2_t3t4t")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
