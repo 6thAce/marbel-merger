@@ -17,6 +17,7 @@ scale = Vector2(0.99999994, 0.99999994)
 target_position = Vector2(687.30786, 687.3078)
 
 [node name="Timer" type="Timer" parent="GameOverRay"]
+wait_time = 3.0
 
 [node name="Line2D" type="Line2D" parent="GameOverRay"]
 z_index = -1
@@ -39,3 +40,5 @@ zoom = Vector2(0.75, 0.75)
 offset_right = 48.0
 offset_bottom = 23.0
 text = "SCORE: 0"
+
+[connection signal="child_entered_tree" from="GameOverRay" to="." method="_on_game_over_ray_child_entered_tree"]
