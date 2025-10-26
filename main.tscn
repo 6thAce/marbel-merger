@@ -25,7 +25,7 @@ position = Vector2(0.66930866, 0.66930866)
 rotation = -0.7853982
 scale = Vector2(1, 6.2606845)
 points = PackedVector2Array(0, 0, 0, 154.00002)
-default_color = Color(0.16470589, 0.28627452, 1, 1)
+default_color = Color(0.16470589, 0.28627452, 1, 0.45882353)
 
 [node name="BallSpawner" type="Marker2D" parent="."]
 position = Vector2(604, -74)
