@@ -234,7 +234,3 @@ func end_game():
 	# Display final score
 	if is_instance_valid(score_label):
 		score_label.text = "GAME OVER! Final Score: " + str(current_score)
-
-
-func _on_game_over_ray_child_entered_tree(node: Node) -> void:
-	pass # Replace with function body.
