@@ -1,13 +1,13 @@
 extends Node2D
 
-# UI Nodes 
-@onready var score_label = $Score_label 
+# UI Nodes 
+@onready var score_label = $Score_label
 @onready var spawner = $BallSpawner
 @onready var game_over_ray: RayCast2D = $GameOverRay # Reference to the Game Over RayCast2D
 
 # Game Configuration
 # Levels 0 to 4. Level 5 is merge-only. Weights sum to 100.
-const SPAWN_WEIGHTS = [60, 25, 10, 5, 0] 
+const SPAWN_WEIGHTS = [60, 25, 10, 5, 0]
 const BALL_RADIUS = 16.0 # Adjust this to the radius of your largest ball for clamping
 const GAME_OVER_TIME = 3.0 # The duration required to trigger Game Over
 
@@ -41,7 +41,7 @@ func _ready():
 	# Safety check for spawner
 	if is_instance_valid(spawner):
 		last_drop_x = spawner.position.x
-	update_score_display() 
+	update_score_display()
 	spawn_preview()
 	
 	# RayCast2D logic is handled in _physics_process, no signal connections needed.
@@ -99,7 +99,7 @@ func _physics_process(delta):
 		collision_time = 0.0
 
 # =========================
-# 🖱️ Handle Input 
+# 🖱️ Handle Input 
 # =========================
 
 func _input(event):
