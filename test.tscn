@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://b0suqv0ub3gjk"]
+
+[ext_resource type="Script" uid="uid://cqrqgumi2kr5b" path="res://test.gd" id="1_6uqi0"]
+[ext_resource type="PackedScene" uid="uid://c22kvelkc747v" path="res://block.tscn" id="2_ppyta"]
+[ext_resource type="PackedScene" uid="uid://dmh855alp8erh" path="res://ball3.tscn" id="3_ykrsh"]
+
+[node name="test" type="Node2D"]
+script = ExtResource("1_6uqi0")
+
+[node name="block" parent="." instance=ExtResource("2_ppyta")]
+position = Vector2(378, 651)
+
+[node name="block2" parent="." instance=ExtResource("2_ppyta")]
+position = Vector2(874, 651)
+
+[node name="ball3" parent="." instance=ExtResource("3_ykrsh")]
+position = Vector2(501, 412)
+
+[node name="Camera2D" type="Camera2D" parent="ball3"]
