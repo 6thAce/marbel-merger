@@ -12,8 +12,8 @@ func _process(delta: float) -> void:
 	pass
 
 func _input(event):
-	if event.is_action_pressed("ui_up"):
+	if event.is_action_pressed("ui_down"):
 			scale += scale_increment
 		
-	elif  event.is_action_pressed("ui_down"):
+	elif  event.is_action_pressed("ui_up"):
 			scale -= scale_increment
